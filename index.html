@@ -32,11 +32,91 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
     <style>
         :where([class^="ri-"])::before {
             content: "\f3c2";
         }
+        
+        /* Enhanced Animation Styles */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .fade-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .slide-in-left.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .slide-in-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scale-in.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .rotate-in {
+            opacity: 0;
+            transform: rotate(-10deg) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .rotate-in.animate {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        
+        .bounce-in {
+            opacity: 0;
+            transform: translateY(100px) scale(0.8);
+            transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .bounce-in.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .flip-in {
+            opacity: 0;
+            transform: perspective(1000px) rotateY(90deg);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .flip-in.animate {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
         .slide-in {
             opacity: 0;
             transform: translateX(-50px);
@@ -50,6 +130,62 @@
         .slide-in:nth-child(3) { transition-delay: 0.2s; }
         .slide-in:nth-child(4) { transition-delay: 0.3s; }
         .slide-in:nth-child(5) { transition-delay: 0.4s; }
+        
+        /* Stagger animations */
+        .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-item:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-item:nth-child(4) { transition-delay: 0.4s; }
+        
+        /* Parallax effect */
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        /* Hover animations */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Text reveal animation */
+        .text-reveal {
+            overflow: hidden;
+        }
+        
+        .text-reveal span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .text-reveal.animate span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Counter animation */
+        .counter {
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        /* Loading animation */
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200px 100%;
+            animation: shimmer 1.5s infinite;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -74,19 +210,19 @@
     <section class="relative min-h-screen flex items-center justify-center" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20high-tech%20office%20workspace%20with%20multiple%20computer%20monitors%20displaying%20code%20and%20digital%20interfaces%2C%20purple%20blue%20gradient%20lighting%2C%20futuristic%20technology%20environment%2C%20clean%20minimalist%20setup%2C%20professional%20atmosphere%2C%20left%20side%20darker%20for%20text%20overlay%2C%20right%20side%20brighter%20with%20workstation%20details&width=1920&height=1080&seq=hero1&orientation=landscape'); background-size: cover; background-position: center;">
         <div class="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-blue-900/60 to-transparent"></div>
         <div class="relative z-10 w-full max-w-6xl mx-auto px-6">
-            <div class="text-center lg:text-left max-w-2xl">
-                <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">
-                    Innovating<br>
+            <div class="text-center lg:text-left max-w-3xl">
+                <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6 text-reveal">
+                    <span>Innovating</span><br>
                     <span class="text-blue-300">Digital Solutions</span>
                 </h1>
-                <p class="text-xl text-gray-200 mb-8 max-w-lg">
+                <p class="text-xl text-gray-200 mb-8 max-w-lg fade-up">
                     We craft exceptional digital experiences that drive growth and transform businesses in the modern world
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="bg-primary text-white px-8 py-3 !rounded-button hover:bg-blue-600 transition-colors whitespace-nowrap">
+                <div class="flex flex-col sm:flex-row gap-4 fade-up">
+                    <button class="bg-primary text-white px-8 py-3 !rounded-button hover:bg-blue-600 transition-colors whitespace-nowrap hover-lift">
                         Get Started
                     </button>
-                    <button class="border border-white text-white px-8 py-3 !rounded-button hover:bg-white hover:text-blue-900 transition-colors whitespace-nowrap flex items-center gap-2">
+                    <button class="border border-white text-white px-8 py-3 !rounded-button hover:bg-white hover:text-blue-900 transition-colors whitespace-nowrap flex items-center gap-2 hover-lift">
                         <div class="w-5 h-5 flex items-center justify-center">
                             <i class="ri-play-fill"></i>
                         </div>
@@ -101,10 +237,10 @@
     <section id="services" class="pt-20 pb-10 bg-white">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4 fade-up">
                     Our <span class="text-primary">Services</span>
                 </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
+                <p class="text-gray-600 max-w-2xl mx-auto fade-up">
                     We provide comprehensive digital solutions tailored to meet your business needs and drive sustainable growth
                 </p>
             </div>
@@ -118,27 +254,27 @@
                 <div class="order-2 lg:order-1">
                     <img src="https://vativeapps.com/wp-content/uploads/2025/04/mobile-app-developement.webp" 
                          alt="UI/UX Design" 
-                         class="w-full h-80 object-cover rounded-lg shadow-lg">
+                         class="w-full h-80 object-cover rounded-lg shadow-lg slide-in-left hover-lift">
                 </div>
                 
                 <!-- Content -->
                 <div class="order-1 lg:order-2">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 slide-in-right">
                         Mobile App development Services
                     </h2>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed slide-in-right">
                         We craft visually stunning and intuitive user interfaces that enhance user satisfaction and drive engagement. Our design process focuses on creating seamless user experiences that not only look great but also function flawlessly across all devices and platforms.
                     </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center">
+                    <ul class="space-y-3 slide-in-right">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">User centered design approach</span>
                         </li>
-                        <li class="flex items-center">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">Interactive and engaging interfaces</span>
                         </li>
-                        <li class="flex items-center">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">Consistent and accessible design language</span>
                         </li>
@@ -153,22 +289,22 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Content -->
                 <div class="order-1 lg:order-1">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 slide-in-left">
                         Website Development Services
                     </h2>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed slide-in-left">
                         We craft visually stunning and intuitive user interfaces that enhance user satisfaction and drive engagement. Our design process focuses on creating seamless user experiences that not only look great but also function flawlessly across all devices and platforms.
                     </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center">
+                    <ul class="space-y-3 slide-in-left">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">User centered design approach</span>
                         </li>
-                        <li class="flex items-center">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">Interactive and engaging interfaces</span>
                         </li>
-                        <li class="flex items-center">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">Consistent and accessible design language</span>
                         </li>
@@ -178,7 +314,7 @@
                 <div class="order-2 lg:order-2">
                     <img src="https://vativeapps.com/wp-content/uploads/2025/04/mobile-app-developement.webp" 
                          alt="UI/UX Design" 
-                         class="w-full h-80 object-cover rounded-lg shadow-lg">
+                         class="w-full h-80 object-cover rounded-lg shadow-lg slide-in-right hover-lift">
                 </div>
             </div>
         </div>
@@ -191,27 +327,27 @@
                 <div class="order-2 lg:order-1">
                     <img src="https://vativeapps.com/wp-content/uploads/2025/04/mobile-app-developement.webp" 
                          alt="UI/UX Design" 
-                         class="w-full h-80 object-cover rounded-lg shadow-lg">
+                         class="w-full h-80 object-cover rounded-lg shadow-lg slide-in-left hover-lift">
                 </div>
                 
                 <!-- Content -->
                 <div class="order-1 lg:order-2">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 slide-in-right">
                         UI/UX Design Excellence
                     </h2>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed slide-in-right">
                         We craft visually stunning and intuitive user interfaces that enhance user satisfaction and drive engagement. Our design process focuses on creating seamless user experiences that not only look great but also function flawlessly across all devices and platforms.
                     </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center">
+                    <ul class="space-y-3 slide-in-right">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">User centered design approach</span>
                         </li>
-                        <li class="flex items-center">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">Interactive and engaging interfaces</span>
                         </li>
-                        <li class="flex items-center">
+                        <li class="flex items-center stagger-item">
                             <div class="w-3 h-3 bg-blue-500 rounded-full mr-4"></div>
                             <span class="text-gray-700">Consistent and accessible design language</span>
                         </li>
@@ -225,37 +361,37 @@
     <section class="py-20 bg-gray-50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4 fade-up">
                     Why Choose <span class="text-primary">Zaarfa</span>
                 </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
+                <p class="text-gray-600 max-w-2xl mx-auto fade-up">
                     We combine creativity with technical expertise to deliver exceptional digital solutions that exceed expectations
                 </p>
             </div>
 
             <!-- Stats -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-primary mb-2">150+</div>
+                <div class="text-center bounce-in">
+                    <div class="text-4xl font-bold text-primary mb-2 counter">150+</div>
                     <div class="text-gray-600">Projects Completed</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-primary mb-2">50+</div>
+                <div class="text-center bounce-in">
+                    <div class="text-4xl font-bold text-primary mb-2 counter">50+</div>
                     <div class="text-gray-600">Happy Clients</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-primary mb-2">5+</div>
+                <div class="text-center bounce-in">
+                    <div class="text-4xl font-bold text-primary mb-2 counter">5+</div>
                     <div class="text-gray-600">Years Experience</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-primary mb-2">24/7</div>
+                <div class="text-center bounce-in">
+                    <div class="text-4xl font-bold text-primary mb-2 counter">24/7</div>
                     <div class="text-gray-600">Support Available</div>
                 </div>
             </div>
 
             <!-- Features -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center">
+                <div class="text-center scale-in hover-lift">
                     <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="ri-rocket-line text-white text-2xl"></i>
                     </div>
@@ -265,7 +401,7 @@
                     </p>
                 </div>
 
-                <div class="text-center">
+                <div class="text-center scale-in hover-lift">
                     <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="ri-team-line text-white text-2xl"></i>
                     </div>
@@ -275,7 +411,7 @@
                     </p>
                 </div>
 
-                <div class="text-center">
+                <div class="text-center scale-in hover-lift">
                     <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="ri-truck-line text-white text-2xl"></i>
                     </div>
@@ -285,7 +421,7 @@
                     </p>
                 </div>
 
-                <div class="text-center">
+                <div class="text-center scale-in hover-lift">
                     <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="ri-customer-service-line text-white text-2xl"></i>
                     </div>
@@ -302,11 +438,11 @@
     <section class="py-20 relative" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20office%20meeting%20room%20with%20glass%20walls%2C%20professional%20business%20environment%2C%20clean%20contemporary%20design%2C%20natural%20lighting%2C%20collaborative%20workspace%2C%20minimal%20furniture%2C%20corporate%20atmosphere&width=1920&height=600&seq=cta1&orientation=landscape'); background-size: cover; background-position: center;">
         <div class="absolute inset-0 bg-blue-900/80"></div>
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold text-white mb-4">Ready to Start Your Project?</h2>
-            <p class="text-xl text-gray-200 mb-8">
+            <h2 class="text-4xl font-bold text-white mb-4 flip-in">Ready to Start Your Project?</h2>
+            <p class="text-xl text-gray-200 mb-8 fade-up">
                 Let's discuss how we can help transform your ideas into reality with our expert team
             </p>
-            <button class="bg-white text-primary px-8 py-3 !rounded-button hover:bg-gray-100 transition-colors whitespace-nowrap font-semibold">
+            <button class="bg-white text-primary px-8 py-3 !rounded-button hover:bg-gray-100 transition-colors whitespace-nowrap font-semibold hover-lift fade-up">
                 Get Free Consultation
             </button>
         </div>
@@ -316,13 +452,13 @@
     <section class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Contact Us</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4 fade-up">Contact Us</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto fade-up">
                     Ready to get started? Fill out the form below and our team will get back to you within 24 hours
                 </p>
             </div>
 
-            <form id="contactForm" class="max-w-2xl mx-auto">
+            <form id="contactForm" class="max-w-2xl mx-auto scale-in">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
@@ -460,6 +596,122 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script id="enhanced-animations">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced Intersection Observer for all animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        
+                        // Handle different animation types
+                        if (element.classList.contains('fade-up')) {
+                            element.classList.add('animate');
+                        } else if (element.classList.contains('slide-in-left')) {
+                            element.classList.add('animate');
+                        } else if (element.classList.contains('slide-in-right')) {
+                            element.classList.add('animate');
+                        } else if (element.classList.contains('scale-in')) {
+                            element.classList.add('animate');
+                        } else if (element.classList.contains('rotate-in')) {
+                            element.classList.add('animate');
+                        } else if (element.classList.contains('bounce-in')) {
+                            element.classList.add('animate');
+                        } else if (element.classList.contains('flip-in')) {
+                            element.classList.add('animate');
+                        } else if (element.classList.contains('text-reveal')) {
+                            element.classList.add('animate');
+                        }
+                        
+                        // Handle stagger animations
+                        if (element.classList.contains('stagger-item')) {
+                            const parent = element.closest('.slide-in-right, .slide-in-left');
+                            if (parent) {
+                                const items = parent.querySelectorAll('.stagger-item');
+                                items.forEach((item, index) => {
+                                    setTimeout(() => {
+                                        item.classList.add('animate');
+                                    }, index * 150);
+                                });
+                            }
+                        }
+                        
+                        observer.unobserve(element);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all animated elements
+            const animatedElements = document.querySelectorAll('.fade-up, .slide-in-left, .slide-in-right, .scale-in, .rotate-in, .bounce-in, .flip-in, .text-reveal');
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Counter animation
+            const counters = document.querySelectorAll('.counter');
+            const counterObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.textContent);
+                        let current = 0;
+                        const increment = target / 50;
+                        
+                        const updateCounter = () => {
+                            if (current < target) {
+                                current += increment;
+                                counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '');
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target + (counter.textContent.includes('+') ? '+' : '');
+                            }
+                        };
+                        
+                        updateCounter();
+                        counterObserver.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            counters.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+            
+            // Parallax effect for hero section
+            const heroSection = document.querySelector('section[style*="background-image"]');
+            if (heroSection) {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.5;
+                    heroSection.style.transform = `translateY(${rate}px)`;
+                });
+            }
+            
+            // Smooth reveal for text elements
+            const textElements = document.querySelectorAll('.text-reveal');
+            textElements.forEach(element => {
+                const text = element.textContent;
+                element.innerHTML = '';
+                text.split('').forEach((char, index) => {
+                    const span = document.createElement('span');
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    span.style.transitionDelay = `${index * 0.05}s`;
+                    element.appendChild(span);
+                });
+            });
+        });
+    </script>
 
     <script id="services-animation">
         document.addEventListener('DOMContentLoaded', function() {
