@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/zaafra.html" }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+}
