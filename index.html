@@ -188,6 +188,65 @@
             background-size: 200px 100%;
             animation: shimmer 1.5s infinite;
         }
+        
+        /* Hamburger Menu Animations */
+        .hamburger-active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        
+        .hamburger-active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Mobile Menu Item Animations */
+        .mobile-menu-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .mobile-menu-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Menu Open Animation */
+        .mobile-menu-open {
+            transform: translateX(0) !important;
+        }
+        
+        /* Mobile Menu Item Stagger Animation */
+        .mobile-menu-item:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu-item:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu-item:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu-item:nth-child(4) { transition-delay: 0.4s; }
+        
+        /* Mobile Menu Background Animation */
+        .mobile-menu-bg {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(59, 130, 246, 0.1) 100%);
+            backdrop-filter: blur(20px);
+        }
+        
+        /* Mobile Menu Hover Effects */
+        .mobile-menu-item:hover span::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-item span::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #60a5fa, #a855f7);
+            transition: width 0.3s ease;
+        }
     </style>
 </head>
     <body class="bg-white overflow-x-hidden w-full">
@@ -205,6 +264,74 @@
                 <a href="#" class="text-white hover:text-blue-200 transition-colors">Portfolio</a>
                 <a href="#" class="text-white hover:text-blue-200 transition-colors">Contact</a>
             </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden relative w-8 h-8 flex flex-col justify-center items-center group">
+                <span class="w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out transform group-hover:bg-blue-200"></span>
+                <span class="w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out transform mt-1.5 group-hover:bg-blue-200"></span>
+                <span class="w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-out transform mt-1.5 group-hover:bg-blue-200"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-md z-40 transform translate-x-full transition-transform duration-500 ease-in-out md:hidden">
+            <div class="flex flex-col items-center justify-center h-full">
+                <div class="text-center space-y-8">
+                    <div class="mb-12">
+                        <div class="text-white text-3xl font-['Pacifico'] mb-4">Zaarfa</div>
+                        <div class="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto"></div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <a href="#" class="block text-white text-2xl font-medium hover:text-blue-300 transition-all duration-300 transform hover:scale-105 mobile-menu-item">
+                            <span class="relative">
+                                Services
+                                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </a>
+                        <a href="#" class="block text-white text-2xl font-medium hover:text-blue-300 transition-all duration-300 transform hover:scale-105 mobile-menu-item">
+                            <span class="relative">
+                                About
+                                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </a>
+                        <a href="#" class="block text-white text-2xl font-medium hover:text-blue-300 transition-all duration-300 transform hover:scale-105 mobile-menu-item">
+                            <span class="relative">
+                                Portfolio
+                                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </a>
+                        <a href="#" class="block text-white text-2xl font-medium hover:text-blue-300 transition-all duration-300 transform hover:scale-105 mobile-menu-item">
+                            <span class="relative">
+                                Contact
+                                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 group-hover:w-full"></span>
+                            </span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-12 pt-8 border-t border-white/20">
+                        <div class="flex justify-center space-x-6">
+                            <a href="#" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 transform hover:scale-110">
+                                <i class="ri-facebook-fill text-white text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 transform hover:scale-110">
+                                <i class="ri-twitter-fill text-white text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 transform hover:scale-110">
+                                <i class="ri-linkedin-fill text-white text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 transform hover:scale-110">
+                                <i class="ri-instagram-fill text-white text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Close Button -->
+            <button id="closeMenuBtn" class="absolute top-8 right-8 w-10 h-10 flex items-center justify-center text-white hover:text-blue-300 transition-colors">
+                <i class="ri-close-line text-2xl"></i>
+            </button>
         </div>
     </nav>
 
@@ -212,8 +339,8 @@
     <section class="relative min-h-screen flex items-center justify-center" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20high-tech%20office%20workspace%20with%20multiple%20computer%20monitors%20displaying%20code%20and%20digital%20interfaces%2C%20purple%20blue%20gradient%20lighting%2C%20futuristic%20technology%20environment%2C%20clean%20minimalist%20setup%2C%20professional%20atmosphere%2C%20left%20side%20darker%20for%20text%20overlay%2C%20right%20side%20brighter%20with%20workstation%20details&width=1920&height=1080&seq=hero1&orientation=landscape'); background-size: cover; background-position: center;">
         <div class="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-blue-900/60 to-transparent"></div>
         <div class="relative z-10 w-full max-w-6xl mx-auto px-6">
-            <div class="text-center lg:text-left max-w-2xl">
-                <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">
+            <div class="text-left max-w-2xl">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
                     <span class="text-reveal">Innovating</span><br>
                     <span class="text-blue-300 text-reveal">Digital Solutions</span>
                 </h1>
@@ -522,7 +649,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-16">
+    <footer class="bg-gray-900 text-white pt-16 pb-4">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div>
@@ -772,6 +899,126 @@
                 if (!dropdown.contains(e.target) && !options.contains(e.target)) {
                     options.classList.add('hidden');
                 }
+            });
+        });
+    </script>
+
+    <script id="mobile-menu">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const hamburgerSpans = mobileMenuBtn.querySelectorAll('span');
+            const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+            let isMenuOpen = false;
+
+            // Toggle menu function
+            function toggleMenu() {
+                if (!isMenuOpen) {
+                    // Open menu
+                    mobileMenu.classList.add('mobile-menu-open');
+                    mobileMenuBtn.classList.add('hamburger-active');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Animate hamburger
+                    hamburgerSpans.forEach((span, index) => {
+                        span.style.transitionDelay = `${index * 0.1}s`;
+                    });
+                    
+                    // Animate menu items with stagger
+                    setTimeout(() => {
+                        mobileMenuItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('animate');
+                            }, index * 100);
+                        });
+                    }, 300);
+                    
+                    isMenuOpen = true;
+                } else {
+                    // Close menu
+                    mobileMenu.classList.remove('mobile-menu-open');
+                    mobileMenuBtn.classList.remove('hamburger-active');
+                    document.body.style.overflow = '';
+                    
+                    // Reset hamburger animation
+                    hamburgerSpans.forEach(span => {
+                        span.style.transitionDelay = '0s';
+                    });
+                    
+                    // Reset menu items
+                    mobileMenuItems.forEach(item => {
+                        item.classList.remove('animate');
+                    });
+                    
+                    isMenuOpen = false;
+                }
+            }
+
+            // Event listeners
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking on menu items
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    setTimeout(toggleMenu, 300);
+                });
+            });
+
+            // Close menu when clicking outside
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    toggleMenu();
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isMenuOpen) {
+                    toggleMenu();
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768 && isMenuOpen) {
+                    toggleMenu();
+                }
+            });
+
+            // Add touch gesture support for swipe to close
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            mobileMenu.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            mobileMenu.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (diff > swipeThreshold && isMenuOpen) {
+                    // Swipe left to close
+                    toggleMenu();
+                }
+            }
+
+            // Add hover effects for menu items
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'scale(1.05) translateY(0)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'scale(1) translateY(0)';
+                });
             });
         });
     </script>
