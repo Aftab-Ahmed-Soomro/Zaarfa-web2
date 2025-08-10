@@ -698,6 +698,121 @@
         }
       }
 
+      /* Portfolio Scroll Animations */
+      .portfolio-animate {
+        opacity: 0;
+        transform: translateY(60px) scale(0.95);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform, opacity;
+      }
+
+      .portfolio-animate.animate {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      /* Mobile fallback - ensure items are visible if animations don't trigger */
+      @media (max-width: 768px) {
+        .portfolio-animate {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .portfolio-animate.animate {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        
+        /* Ensure section header and filter tabs are visible on mobile */
+        .section-header {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .filter-tabs {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Enhanced portfolio item hover effects */
+      .portfolio-item {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform, box-shadow;
+      }
+
+      .portfolio-item:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Portfolio image hover effect */
+      .portfolio-image {
+        overflow: hidden;
+      }
+
+      .portfolio-image img {
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .portfolio-item:hover .portfolio-image img {
+        transform: scale(1.1);
+      }
+
+      /* Filter button enhanced animations */
+      .filter-btn {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .filter-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      .filter-btn:hover::before {
+        left: 100%;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+      }
+
+      /* Portfolio section header animations */
+      .section-header {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .section-header.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Filter tabs animation */
+      .filter-tabs {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition-delay: 0.3s;
+      }
+
+      .filter-tabs.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       /* Loading animation */
       .loading {
         display: flex;
@@ -1223,9 +1338,9 @@
 
     <!-- Portfolio Section -->
 
-    <section class="portfolio-section">
+    <section class="portfolio-section" id="portfolio-section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header" id="portfolio-header">
           <h2 class="section-title">Our Portfolio</h2>
           <p class="section-subtitle">
             Discover our latest projects and success stories across web
@@ -1581,7 +1696,7 @@
       </div>
     </section>
     <script>
-      // Portfolio filter functionality
+      // Portfolio filter functionality with comprehensive scroll animations
       document.addEventListener("DOMContentLoaded", function () {
         const filterBtns = document.querySelectorAll(
           "#portfolio-filters .filter-btn"
@@ -1590,23 +1705,128 @@
           "#portfolio-grid .portfolio-item"
         );
 
+        // Add animation classes to portfolio items
+        items.forEach((item, index) => {
+          item.classList.add("portfolio-animate");
+        });
+
+        // Portfolio section scroll animation observer
+        const portfolioSectionObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Animate section header
+                const header = document.getElementById("portfolio-header");
+                if (header) {
+                  header.classList.add("animate");
+                }
+
+                // Animate filter tabs
+                const filterTabs = document.getElementById("portfolio-filters");
+                if (filterTabs) {
+                  setTimeout(() => {
+                    filterTabs.classList.add("animate");
+                  }, 300);
+                }
+
+                // Animate portfolio items with stagger
+                const portfolioItems = entry.target.querySelectorAll(".portfolio-animate");
+                portfolioItems.forEach((item, index) => {
+                  setTimeout(() => {
+                    item.classList.add("animate");
+                  }, 600 + (index * 100)); // Start after header and filter animations
+                });
+
+                portfolioSectionObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -150px 0px" }
+        );
+
+        // Observe portfolio section
+        const portfolioSection = document.getElementById("portfolio-section");
+        if (portfolioSection) {
+          portfolioSectionObserver.observe(portfolioSection);
+        }
+
+        // Mobile fallback - ensure animations trigger even if IntersectionObserver fails
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          // On mobile, trigger animations after a short delay to ensure visibility
+          setTimeout(() => {
+            const header = document.getElementById("portfolio-header");
+            const filterTabs = document.getElementById("portfolio-filters");
+            const portfolioItems = document.querySelectorAll(".portfolio-animate");
+            
+            if (header) header.classList.add("animate");
+            if (filterTabs) filterTabs.classList.add("animate");
+            
+            portfolioItems.forEach((item, index) => {
+              setTimeout(() => {
+                item.classList.add("animate");
+              }, index * 50); // Faster stagger on mobile
+            });
+          }, 500);
+        }
+
+        // Filter functionality with re-animation
         filterBtns.forEach((btn) => {
           btn.addEventListener("click", function () {
             // Remove active from all
             filterBtns.forEach((b) => b.classList.remove("active"));
             this.classList.add("active");
             const filter = this.getAttribute("data-filter");
+            
+            // Reset animations for filtered items
             items.forEach((item) => {
+              item.classList.remove("animate");
               if (
                 filter === "all" ||
                 item.getAttribute("data-category") === filter
               ) {
                 item.style.display = "";
+                // Re-trigger animation for visible items with stagger
+                const visibleItems = Array.from(items).filter(item => 
+                  filter === "all" || item.getAttribute("data-category") === filter
+                );
+                visibleItems.forEach((item, index) => {
+                  setTimeout(() => {
+                    item.classList.add("animate");
+                  }, index * 80);
+                });
               } else {
                 item.style.display = "none";
               }
             });
           });
+        });
+
+        // Add hover animations for portfolio items
+        items.forEach((item) => {
+          item.addEventListener("mouseenter", function() {
+            this.style.transform = "translateY(-12px) scale(1.02)";
+            this.style.boxShadow = "0 25px 50px rgba(0, 0, 0, 0.2)";
+          });
+
+          item.addEventListener("mouseleave", function() {
+            this.style.transform = "";
+            this.style.boxShadow = "";
+          });
+        });
+
+        // Handle window resize and orientation changes
+        window.addEventListener('resize', function() {
+          const newIsMobile = window.innerWidth <= 768;
+          if (newIsMobile && !isMobile) {
+            // Just switched to mobile, ensure animations are visible
+            const portfolioItems = document.querySelectorAll(".portfolio-animate");
+            portfolioItems.forEach((item) => {
+              if (!item.classList.contains("animate")) {
+                item.classList.add("animate");
+              }
+            });
+          }
         });
       });
     </script>
