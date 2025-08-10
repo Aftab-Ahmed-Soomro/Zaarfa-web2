@@ -38,6 +38,30 @@
         :where([class^="ri-"])::before {
             content: "\f3c2";
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Portfolio Section Container Override */
+        .portfolio-section .container {
+            max-width: 1200px;
+        }
         
         /* Enhanced Animation Styles */
         .fade-up {
@@ -246,6 +270,396 @@
             height: 2px;
             background: linear-gradient(90deg, #60a5fa, #a855f7);
             transition: width 0.3s ease;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 80px 0;
+            min-height: 100vh;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 50px;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 220px;
+            background: #f8fafc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            padding: 24px;
+        }
+
+        .project-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #3b82f6;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .project-subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .view-details {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .view-details:hover {
+            color: #3b82f6;
+            transform: translateX(4px);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Category Icons */
+        .category-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .web-icon { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .app-icon { background: linear-gradient(135deg, #10b981, #059669); }
+        .ecommerce-icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .marketing-icon { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+        /* Project Detail Modal */
+        .project-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-detail-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .project-detail-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .modal-category {
+            color: #3b82f6;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .detail-section h3 {
+            color: #1e293b;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .detail-section p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .tech-tag {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .results-list {
+            list-style: none;
+        }
+
+        .results-list li {
+            padding: 8px 0;
+            color: #64748b;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .results-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .project-gallery {
+            margin-top: 30px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .filter-tabs {
+                gap: 4px;
+            }
+            
+            .filter-btn {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f1f5f9;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -598,6 +1012,420 @@
             </div>
         </div>
     </section>
+
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Portfolio</h2>
+                <p class="section-subtitle">Discover our latest projects and success stories across web development, mobile applications, e-commerce solutions, and digital marketing campaigns that drive real results.</p>
+            </div>
+
+            <div class="filter-tabs" id="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="app">App Development</button>
+                <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+                <button class="filter-btn" data-filter="marketing">Digital Marketing</button>
+            </div>
+
+            <div class="portfolio-grid" id="portfolio-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                <!-- Web Development Projects -->
+                <div class="portfolio-item" data-category="web" data-project="techcorp-website">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=1" alt="TechCorp Website" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon web-icon"></span>
+                            Web Development
+                        </div>
+                        <h3 class="project-title">TechCorp Website</h3>
+                        <p class="project-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea illum voluptas earum nemo dignissimos beatae, illo quos atque similique fuga, repellat impedit odio ipsam laudantium cumque omnis necessitatibus error veniam?</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('techcorp-website')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web" data-project="healthplus-portal">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=2" alt="HealthPlus Portal" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon web-icon"></span>
+                            Web Development
+                        </div>
+                        <h3 class="project-title">HealthPlus Portal</h3>
+                        <p class="project-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem natus excepturi quibusdam distinctio accusamus asperiores, cum, fugit dolore adipisci tempora veniam optio perspiciatis ad minima culpa! Pariatur distinctio dolor ut!</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('healthplus-portal')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web" data-project="edulearn-platform">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=3" alt="EduLearn Platform" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon web-icon"></span>
+                            Web Development
+                        </div>
+                        <h3 class="project-title">EduLearn Platform</h3>
+                        <p class="project-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis quam tempora repudiandae esse unde beatae eligendi adipisci laudantium suscipit, placeat consequuntur amet nostrum deserunt quis provident doloribus maiores quod voluptates.</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('edulearn-platform')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web" data-project="fintech-dashboard">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=4" alt="FinTech Dashboard" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon web-icon"></span>
+                            Web Development
+                        </div>
+                        <h3 class="project-title">FinTech Dashboard</h3>
+                        <p class="project-subtitle">Financial Platform</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('fintech-dashboard')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Development Projects -->
+                <div class="portfolio-item" data-category="app" data-project="fitness-tracker">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=5" alt="FitLife Tracker" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon app-icon"></span>
+                            App Development
+                        </div>
+                        <h3 class="project-title">FitLife Tracker</h3>
+                        <p class="project-subtitle">Fitness Mobile App</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('fitness-tracker')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="app" data-project="banking-app">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=6" alt="SecurePay Banking" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon app-icon"></span>
+                            App Development
+                        </div>
+                        <h3 class="project-title">SecurePay Banking</h3>
+                        <p class="project-subtitle">Financial Mobile App</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('banking-app')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="app" data-project="social-connect">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=7" alt="SocialConnect" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon app-icon"></span>
+                            App Development
+                        </div>
+                        <h3 class="project-title">SocialConnect</h3>
+                        <p class="project-subtitle">Social Media App</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('social-connect')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="app" data-project="delivery-app">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=8" alt="QuickDeliver" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon app-icon"></span>
+                            App Development
+                        </div>
+                        <h3 class="project-title">QuickDeliver</h3>
+                        <p class="project-subtitle">Logistics Mobile App</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('delivery-app')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Projects -->
+                <div class="portfolio-item" data-category="ecommerce" data-project="fashion-store">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=9" alt="LuxeFashion Store" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon ecommerce-icon"></span>
+                            E-commerce
+                        </div>
+                        <h3 class="project-title">LuxeFashion Store</h3>
+                        <p class="project-subtitle">Fashion E-commerce</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('fashion-store')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="ecommerce" data-project="tech-marketplace">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=10" alt="TechBazaar Marketplace" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon ecommerce-icon"></span>
+                            E-commerce
+                        </div>
+                        <h3 class="project-title">TechBazaar Marketplace</h3>
+                        <p class="project-subtitle">Electronics Platform</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('tech-marketplace')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="ecommerce" data-project="organic-store">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=11" alt="GreenEats Organic" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon ecommerce-icon"></span>
+                            E-commerce
+                        </div>
+                        <h3 class="project-title">GreenEats Organic</h3>
+                        <p class="project-subtitle">Organic Food Store</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('organic-store')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="ecommerce" data-project="crafts-marketplace">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=12" alt="ArtisanCrafts Marketplace" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon ecommerce-icon"></span>
+                            E-commerce
+                        </div>
+                        <h3 class="project-title">ArtisanCrafts Marketplace</h3>
+                        <p class="project-subtitle">Handmade Crafts Platform</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('crafts-marketplace')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Marketing Projects -->
+                <div class="portfolio-item" data-category="marketing" data-project="startup-campaign">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=13" alt="InnovateTech Campaign" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon marketing-icon"></span>
+                            Digital Marketing
+                        </div>
+                        <h3 class="project-title">InnovateTech Campaign</h3>
+                        <p class="project-subtitle">Product Launch Campaign</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('startup-campaign')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="marketing" data-project="retail-rebranding">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=14" alt="RetailGiant Rebranding" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon marketing-icon"></span>
+                            Digital Marketing
+                        </div>
+                        <h3 class="project-title">RetailGiant Rebranding</h3>
+                        <p class="project-subtitle">Complete Brand Makeover</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('retail-rebranding')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="marketing" data-project="beauty-influencer">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=15" alt="BeautyBrand Campaign" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon marketing-icon"></span>
+                            Digital Marketing
+                        </div>
+                        <h3 class="project-title">BeautyBrand Campaign</h3>
+                        <p class="project-subtitle">Influencer Marketing</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('beauty-influencer')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="marketing" data-project="legal-seo">
+                    <div class="portfolio-image">
+                        <img src="https://picsum.photos/400/220?random=16" alt="LegalFirm SEO" loading="lazy">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="project-category">
+                            <span class="category-icon marketing-icon"></span>
+                            Digital Marketing
+                        </div>
+                        <h3 class="project-title">LegalFirm SEO</h3>
+                        <p class="project-subtitle">SEO Optimization</p>
+                        <div class="project-meta">
+                            <div></div>
+                            <button class="view-details" onclick="showProjectDetail('legal-seo')">
+                                View Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+    // Portfolio filter functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterBtns = document.querySelectorAll('#portfolio-filters .filter-btn');
+        const items = document.querySelectorAll('#portfolio-grid .portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Remove active from all
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.getAttribute('data-filter');
+                items.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+    </script>
+
+    <!-- Project Detail Modal -->
+    <div class="project-detail-modal" id="project-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img id="modal-hero-image" src="" alt="">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-category" id="modal-category"></div>
+                <h1 class="modal-title" id="modal-title"></h1>
+                
+                <div class="detail-grid">
+                    <div class="detail-main">
+                        <div class="detail-section">
+                            <h3>Project Overview</h3>
+                            <p id="modal-overview"></p>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h3>Key Features</h3>
+                            <ul class="results-list" id="modal-features"></ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-sidebar">
+                        <div class="detail-section">
+                            <h3>Technologies</h3>
+                            <div class="tech-tags" id="modal-tech"></div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h3>Results</h3>
+                            <ul class="results-list" id="modal-results"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-gallery">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery-grid" id="modal-gallery"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
     <!-- CTA Section -->
     <section class="py-20 relative" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20office%20meeting%20room%20with%20glass%20walls%2C%20professional%20business%20environment%2C%20clean%20contemporary%20design%2C%20natural%20lighting%2C%20collaborative%20workspace%2C%20minimal%20furniture%2C%20corporate%20atmosphere&width=1920&height=600&seq=cta1&orientation=landscape'); background-size: cover; background-position: center;">
